@@ -5,10 +5,38 @@ import numpy as np
 import json, re
 from html import unescape
 import tensorflow as tf
+import gdown
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from gensim.models import FastText
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 tf.config.run_functions_eagerly(True)
+
+# Load GRU Model
+url = "https://drive.google.com/uc?export=download&id=1ugT37sRkfsfbscGHET0QUZ3PvnXV7WRR"
+model_path = "gru_model.h5"
+try:
+    import os
+    if not os.path.exists(model_path):
+        gdown.download(url, model_path, quiet=False)
+except Exception as e:
+    print("Gagal mendownload model:", e)
+gru_model = tf.keras.models.load_model(model_path)
+
+# Load Model Fasttext
+fasttext_bin_url = "https://drive.google.com/uc?export=download&id=1G8U1AzkD6VHUWUD6TsXVSyH4vawdwIK_"
+fasttext_npy_url = "https://drive.google.com/uc?export=download&id=1_Gi3LUQkkLVO4WHhUlCIt4mOsPp-OEX9"
+bin_path = "fasttext.bin"
+npy_path = "fasttext.bin.wv.vectors_ngrams.npy"
+
+if not os.path.exists(bin_path):
+    print("Mengunduh fasttext.bin...")
+    gdown.download(fasttext_bin_url, bin_path, quiet=False)
+
+if not os.path.exists(npy_path):
+    print("Mengunduh fasttext.bin.wv.vectors_ngrams.npy...")
+    gdown.download(fasttext_npy_url, npy_path, quiet=False)
+print("Memuat model FastText...")
+ft_model = FastText.load(bin_path)
 
 # Inisialisasi aplikasi FastAPI
 app = FastAPI()
@@ -130,8 +158,6 @@ tokenizer = tf.keras.preprocessing.text.tokenizer_from_json(json.dumps(tokenizer
 
 max_length = 50
 
-# Load FastText Model
-ft_model = FastText.load("fasttext.bin")
 vector_size = ft_model.vector_size 
 
 def vectorize_tokens(tokens: list) -> np.ndarray:
@@ -145,9 +171,6 @@ def vectorize_tokens(tokens: list) -> np.ndarray:
         return np.zeros(vector_size)
     else:
         return np.mean(vectors, axis=0)
-
-# Load GRU Model
-gru_model = tf.keras.models.load_model("gru_model.h5")
 
 class TextInput(BaseModel):
     text: str
