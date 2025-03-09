@@ -11,8 +11,19 @@ from gensim.models import FastText
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 tf.config.run_functions_eagerly(True)
 
+# Inisialisasi aplikasi FastAPI
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Load GRU Model
-url = "https://drive.google.com/uc?export=download&id=1ugT37sRkfsfbscGHET0QUZ3PvnXV7WRR"
+url = "https://drive.google.com/uc?export=download&id=1fso1UZPipDeqsVUpY52t4wffDYtWsrpE"
 model_path = "gru_model.h5"
 try:
     import os
@@ -23,8 +34,8 @@ except Exception as e:
 gru_model = tf.keras.models.load_model(model_path)
 
 # Load Model Fasttext
-fasttext_bin_url = "https://drive.google.com/uc?export=download&id=1G8U1AzkD6VHUWUD6TsXVSyH4vawdwIK_"
-fasttext_npy_url = "https://drive.google.com/uc?export=download&id=1_Gi3LUQkkLVO4WHhUlCIt4mOsPp-OEX9"
+fasttext_bin_url = "https://drive.google.com/uc?export=download&id=1ZKz-LCWB_MQW-2_tmpR9xpBX8FnRZdLK"
+fasttext_npy_url = "https://drive.google.com/uc?export=download&id=1Hgqr2Jvxu-4UtdnOC5AvTDYSRtWyLjMk"
 bin_path = "fasttext.bin"
 npy_path = "fasttext.bin.wv.vectors_ngrams.npy"
 
@@ -37,17 +48,6 @@ if not os.path.exists(npy_path):
     gdown.download(fasttext_npy_url, npy_path, quiet=False)
 print("Memuat model FastText...")
 ft_model = FastText.load(bin_path)
-
-# Inisialisasi aplikasi FastAPI
-app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"], 
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Load slang dictionary
 with open("final_slang.txt", "r", encoding="utf-8") as f:
@@ -155,9 +155,7 @@ def preprocess_text(text: str) -> list:
 with open("tokenizer.json", "r") as f:
     tokenizer_config = json.load(f)
 tokenizer = tf.keras.preprocessing.text.tokenizer_from_json(json.dumps(tokenizer_config))
-
 max_length = 50
-
 vector_size = ft_model.vector_size 
 
 def vectorize_tokens(tokens: list) -> np.ndarray:
