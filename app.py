@@ -173,6 +173,11 @@ def vectorize_tokens(tokens: list) -> np.ndarray:
 class TextInput(BaseModel):
     text: str
 
+# Defaul Endpoint
+@app.get("/")
+def index():
+    return {"message": "Hello World"}
+
 # Endpoint /preprocess/
 @app.get("/preprocess/")
 def preprocess_endpoint(text: str):
