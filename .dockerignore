@@ -1,5 +1,26 @@
+# Ignore Python cache and compiled files
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+
+# Ignore virtual environments
 venv/
-.env
+myenv/
+
+# Ignore Docker-related files
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Ignore Git and IDE files
+.git/
+.gitignore
+.vscode/
+*.swp
+
+# Ignore large model files (since we're using volumes)
+gru_model.h5
+fasttext.bin
+fasttext.bin.wv.vectors_ngrams.npy
+tokenizer.json

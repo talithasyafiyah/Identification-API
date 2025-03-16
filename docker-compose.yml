@@ -7,6 +7,11 @@ services:
     restart: unless-stopped
     ports:
       - "8000:8000"
+    volumes:
+      - ./gru_model.h5:/app/gru_model.h5
+      - ./fasttext.bin:/app/fasttext.bin
+      - ./fasttext.bin.wv.vectors_ngrams.npy:/app/fasttext.bin.wv.vectors_ngrams.npy
+      - ./tokenizer.json:/app/tokenizer.json
     networks:
       - identification_api
 
