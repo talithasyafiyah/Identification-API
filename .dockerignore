@@ -18,9 +18,3 @@ docker-compose.yml
 .gitignore
 .vscode/
 *.swp
-
-# Ignore large model files (since we're using volumes)
-gru_model.h5
-fasttext.bin
-fasttext.bin.wv.vectors_ngrams.npy
-tokenizer.json
