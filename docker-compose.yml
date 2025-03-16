@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  fastapi:
+    build: .
+    container_name: fastapi-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    networks:
+      - identification_api
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - fastapi
+    networks:
+      - identification_api
+
+networks:
+  identification_api:
+    driver: bridge
