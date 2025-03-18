@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
 import numpy as np
 import json, re
@@ -15,6 +16,7 @@ tf.config.run_functions_eagerly(True)
 app = FastAPI()
 
 app.add_middleware(
+    TrustedHostMiddleware,
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "https://provokasi-doxing-ten.vercel.app/"], 
     allow_credentials=True,
