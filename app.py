@@ -16,9 +16,8 @@ tf.config.run_functions_eagerly(True)
 app = FastAPI()
 
 app.add_middleware(
-    TrustedHostMiddleware,
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://provokasi-doxing-ten.vercel.app/"], 
+    allow_origins=["http://localhost:5173", "https://dox-provocation-detection.my.id", "https://dox-provocation-detection.my.id"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
