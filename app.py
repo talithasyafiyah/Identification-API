@@ -23,7 +23,7 @@ app.add_middleware(
 )
 
 # Load GRU Model
-url = "https://drive.google.com/uc?export=download&id=1fso1UZPipDeqsVUpY52t4wffDYtWsrpE"
+url = "https://drive.google.com/uc?export=download&id=1ZEcrly6zrFSIoeJjKvTYe1V1Qt8NM6P4"
 model_path = "gru_model.h5"
 try:
     import os
@@ -34,8 +34,8 @@ except Exception as e:
 gru_model = tf.keras.models.load_model(model_path)
 
 # Load Model Fasttext
-fasttext_bin_url = "https://drive.google.com/uc?export=download&id=1ZKz-LCWB_MQW-2_tmpR9xpBX8FnRZdLK"
-fasttext_npy_url = "https://drive.google.com/uc?export=download&id=1Hgqr2Jvxu-4UtdnOC5AvTDYSRtWyLjMk"
+fasttext_bin_url = "https://drive.google.com/uc?export=download&id=1nBkDsVjjR-CyYjTBLZ_xgA7GduY6GNaJ"
+fasttext_npy_url = "https://drive.google.com/uc?export=download&id=1POZVZ6gyf8b_KezEBPom_DzQX8VvsCZC"
 bin_path = "fasttext.bin"
 npy_path = "fasttext.bin.wv.vectors_ngrams.npy"
 
