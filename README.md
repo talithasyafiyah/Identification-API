@@ -1,6 +1,6 @@
 # FastAPI Doxing Provocation Identification API
 
-## 📦 Tech Stack & Dependencies
+## Tech Stack & Dependencies
 
 - **Python 3.10+**  
 - [FastAPI](https://fastapi.tiangolo.com/)  
@@ -15,7 +15,7 @@ All requirements are pinned in `requirements.txt`.
 
 ---
 
-## 📥 Installation
+## Installation
 
 ```bash
 python -m venv .venv
@@ -24,7 +24,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 ```
-## ▶️ Running the Server
+## Running the Server
 ```bash
 uvicorn app:app --reload
 ```
